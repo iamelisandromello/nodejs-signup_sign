@@ -1,8 +1,8 @@
 import { Controller } from '../interfaces/controller'
 import { HttpRequest, HttpResponse } from '../interfaces/http'
 import { EmailValidator } from '@/presentation/interfaces/email-validator'
-import { MissingParamError, InvalidParamError, ServerError } from '@/presentation/errors'
-import { badRequest } from '@/presentation/helpers/http/http-helper'
+import { MissingParamError, InvalidParamError } from '@/presentation/errors'
+import { badRequest, serverError } from '@/presentation/helpers/http/http-helper'
 
 export class SignUpController implements Controller {
   constructor (
@@ -29,11 +29,11 @@ export class SignUpController implements Controller {
         statusCode: 200,
         body: { ok: 'ok' }
       }
-      return httpResponse 
+      return httpResponse
     } catch (error) {
       return {
         statusCode: 500,
-        body: new ServerError()
+        body: serverError(error)
       }
     }
   }

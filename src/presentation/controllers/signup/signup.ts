@@ -1,6 +1,12 @@
-import { Controller, HttpRequest, HttpResponse, EmailValidator, AddAccount } from './signup-dependencies'
+import {
+  Controller,
+  HttpRequest,
+  HttpResponse,
+  EmailValidator,
+  AddAccount
+} from './signup-dependencies'
 import { MissingParamError, InvalidParamError } from '@/presentation/errors'
-import { badRequest, serverError } from '@/presentation/helpers/http/http-helper'
+import { badRequest, serverError, success } from '@/presentation/helpers/http/http-helper'
 
 export class SignUpController implements Controller {
   constructor (
@@ -34,10 +40,7 @@ export class SignUpController implements Controller {
         password: password
       })
 
-      return {
-        statusCode: 200,
-        body: account
-      }
+      return success(account)
     } catch (error) {
       return {
         statusCode: 500,
